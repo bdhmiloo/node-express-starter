@@ -1,4 +1,4 @@
-// Create your env file first!
+// TODO Create your env file first!
 
 const dotenv = require('dotenv');
 const result = dotenv.config();

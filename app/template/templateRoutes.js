@@ -1,5 +1,7 @@
 const router = require('express').Router();
 
-// import controllers here
+// TODO import controllers here
 
-// create routes
+// TODO create routes here
+
+module.exports = router;
