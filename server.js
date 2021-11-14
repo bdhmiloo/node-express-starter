@@ -3,7 +3,7 @@
 // ================== DEPENDENCIES ==================
 
 // Patch console.x methods in order to add timestamp information
-require('console-stamp')(console, { pattern: 'dd/mm/yyyy HH:MM:ss.l' });
+require('console-stamp')(console, {pattern: 'dd/mm/yyyy HH:MM:ss.l'});
 
 const config = require('./config/config');
 const express = require('express');
@@ -15,57 +15,54 @@ const cors = require('cors');
 
 // ================== MONGODB ==================
 
-mongoose.connect(
-    config.MONGO_DB_URI,
-    { useNewUrlParser: true }
-);
-const monDb = mongoose.connection;
-
-monDb.on('error', function() {
-    console.error('MongoDB Connection Error. Please make sure that', config.MONGO_DB_NAME, 'is running.');
-});
-
-monDb.once('open', function callback() {
-    console.info('Connected to MongoDB:', config.MONGO_DB_NAME);
-});
+// mongoose.connect(
+//     config.MONGO_DB_URI,
+//     {useNewUrlParser: true}
+// );
+// const monDb = mongoose.connection;
+//
+// monDb.on('error', function () {
+//     console.error('MongoDB Connection Error. Please make sure that', config.MONGO_DB_NAME, 'is running.');
+// });
+//
+// monDb.once('open', function callback() {
+//     console.info('Connected to MongoDB:', config.MONGO_DB_NAME);
+// });
 
 // ================== APP ==================
 
 const server = express();
 server.use(logger('dev'));
 server.use(bodyParser.json());
-server.use(bodyParser.urlencoded({ extended: false }));
+server.use(bodyParser.urlencoded({extended: false}));
 server.use(methodOverride('X-HTTP-Method-Override'));
 server.use(cors());
 
 const port = config.PORT;
 server.set('port', port);
 
-// const prefix = config.API_PREFIX;
+const prefix = config.API_PREFIX;
 
 // ================== ROUTES ==================
 
-// GET /hello
-server.get('/', (req, res) => {
-    res.send({ express: 'Bazinga! Your API is working fine.' });
-});
+// route definitions
+const helloRoutes = require('./app/hello/helloRoutes');
 
-// const userRoutes = require('./server/user/userRoutes');
-
-// server.use(prefix + '/users', userRoutes);
+// route attaching
+server.use(prefix, helloRoutes);
 
 // ================== ERROR HANDLER ==================
 
 // 404
-server.use(function(req, res, next) {
-    var err = new Error('Not Found');
+server.use(function (req, res, next) {
+    const err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
 
 // DEV: does print stacktrace
 if (server.get('env') === 'development') {
-    server.use(function(err, req, res) {
+    server.use(function (err, req, res) {
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
@@ -75,7 +72,7 @@ if (server.get('env') === 'development') {
 }
 
 // PROD: does not print stacktrace
-server.use(function(err, req, res) {
+server.use(function (err, req, res) {
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,
