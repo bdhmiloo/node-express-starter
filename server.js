@@ -5,7 +5,7 @@
 // Patch console.x methods in order to add timestamp information
 require('console-stamp')(console, {pattern: 'dd/mm/yyyy HH:MM:ss.l'});
 
-const config = require('./config/config');
+const config = require('./config');
 const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');

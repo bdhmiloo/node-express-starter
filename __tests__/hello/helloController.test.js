@@ -1,4 +1,4 @@
-const {mockRequest, mockResponse} = require('../_util/interceptor');
+const {mockRequest, mockResponse} = require('../_helper/interceptor');
 const controller = require('../../app/hello/helloController');
 
 describe('HelloController', () => {

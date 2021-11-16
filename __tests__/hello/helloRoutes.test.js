@@ -1,6 +1,6 @@
 const request = require('supertest');
 const server = require('../../server');
-const config = require('../../config/config');
+const config = require('../../config');
 
 describe('Hello Endpoints', () => {
 
