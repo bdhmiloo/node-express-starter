@@ -82,6 +82,7 @@ server.use(function (err, req, res) {
 
 // ================== SERVER ==================
 
-server.listen(port, () => console.log(`Listening on port ${port}`));
+server.listen(port);
+console.log(`🚀 app listening on port ${port}`);
 
 module.exports = server;
