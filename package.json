@@ -11,7 +11,8 @@
         "clean:install": "npm run clean && npm install",
         "clean:start": "npm run clean-install && npm run start",
         "lint": "eslint .",
-        "test": "jest --forceExit --detectOpenHandles --no-cache --runInBand"
+        "test": "jest --forceExit --detectOpenHandles --no-cache --runInBand",
+        "test:watch": "jest --watchAll"
     },
     "repository": {
         "type": "git",
